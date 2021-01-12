@@ -1,0 +1,21 @@
+# Hello, World
+
+[var name:"scrollerIndex" value:0 /]
+[var name:"scrollerChartData" value:`[0.5, 0.3, 1.2, 0.4, 5, 4, 2, 0.4]` /]
+
+[Scroller currentStep:scrollerIndex]
+  [Graphic style:`{padding: 50}`]
+      [Chart type:`"line"` data:`scrollerChartData.slice(0, scrollerIndex + 2)` animate:`{ duration: 500 }` domain:`[-1, scrollerIndex+1]` range:`[-1, Math.max(...scrollerChartData.slice(0, scrollerIndex + 2))]`/]
+  [/Graphic]
+  [Display value:scrollerIndex /]
+
+  [Step]## Hey, neat, here's some data![/Step]
+  [Step]## ...   [/Step]
+  [Step]## ...  What's that more data?![/Step]
+  [Step]## Hmm...[/Step]
+  [Step]## Too much data.[/Step]
+  [Step]## Stop.[/Step]
+  [Step]## that.[/Step]
+  [Step]## data[/Step]
+
+[/Scroller]

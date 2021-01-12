@@ -1,41 +1,49 @@
 <template>
-  <div id="idyll"></div>
+  <div :id="divId" class="content"></div>
 </template>
 
 <script>
-import React from 'react'; // eslint-disable-line
-import ReactDOM from 'react-dom';
-import IdyllDocument from 'idyll-document';
-import * as components from 'idyll-components';
-import {toRefs, onMounted} from 'vue';
-import idyllMarkup from '../assets/idyll/hello_world.idyll';
+import React from "react"; // eslint-disable-line
+import ReactDOM from "react-dom";
+import IdyllDocument from "idyll-document";
+import * as components from "idyll-components";
+import { toRefs, onMounted } from "vue";
+import axios from "axios";
 
-// You must provide idyllMarkup
-// and the container element (a DOM node).
 export default {
   props: {
     file: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup (props) {
+  setup(props) {
     const { file } = toRefs(props);
-    console.log(file);
+    const divId = "idyll" + Math.floor(Math.random() * Math.floor(1000));
 
-    console.log(idyllMarkup);
-
-    onMounted( () => {
-      ReactDOM.render(
-        React.createElement(IdyllDocument, {markup: idyllMarkup, components, datasets: {}}, null),
-        document.getElementById('idyll')
-      )
-    })
+    onMounted(() => {
+      axios
+        .get(`/assets/idyll/${file.value}.idyll`)
+        .then((res) => {
+          let idyllMarkup = res.data;
+          ReactDOM.render(
+            React.createElement(
+              IdyllDocument,
+              { markup: idyllMarkup, components, datasets: {}},
+              null
+            ),
+            document.getElementById(divId)
+          );
+        })
+        .catch((err) => console.log(err));
+    });
 
     return {
-      idyllMarkup
-    }
-  }
-}
-
+      divId,
+    };
+  },
+};
 </script>
+
+<style src="@/assets/idyll.css">
+</style>
