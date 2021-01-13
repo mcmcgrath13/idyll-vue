@@ -6,8 +6,9 @@
 [Scroller currentStep:scrollerIndex]
   [Graphic style:`{padding: 50}`]
       [Chart type:`"line"` data:`scrollerChartData.slice(0, scrollerIndex + 2)` animate:`{ duration: 500 }` domain:`[-1, scrollerIndex+1]` range:`[-1, Math.max(...scrollerChartData.slice(0, scrollerIndex + 2))]`/]
+      [Display value:scrollerIndex /]
   [/Graphic]
-  [Display value:scrollerIndex /]
+
 
   [Step]## Hey, neat, here's some data![/Step]
   [Step]## ...   [/Step]
@@ -19,3 +20,5 @@
   [Step]## data[/Step]
 
 [/Scroller]
+
+## End
